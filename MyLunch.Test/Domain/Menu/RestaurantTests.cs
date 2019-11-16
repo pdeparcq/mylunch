@@ -1,6 +1,7 @@
 ﻿using MyLunch.Domain.Menu;
 using MyLunch.Domain.Shared;
 using NUnit.Framework;
+using System;
 
 namespace MyLunch.Test.Domain.Menu
 {
@@ -14,6 +15,7 @@ namespace MyLunch.Test.Domain.Menu
 
             Assert.AreEqual("Taste-it Gent", restaurant.Name);
             Assert.AreEqual(new EmailAddress("info@taste-it-gent.be"), restaurant.ContactEmail);
+            Assert.AreNotEqual(Guid.Empty, restaurant.Id);
         }
     }
 }

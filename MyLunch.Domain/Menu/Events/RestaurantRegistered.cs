@@ -1,5 +1,6 @@
 ﻿using Kledex.Domain;
 using MyLunch.Domain.Shared;
+using System;
 
 namespace MyLunch.Domain.Menu.Events
 {

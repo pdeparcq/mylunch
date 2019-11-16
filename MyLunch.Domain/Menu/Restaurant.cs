@@ -17,6 +17,7 @@ namespace MyLunch.Domain.Menu
 
             AddAndApplyEvent(new RestaurantRegistered
             {
+                AggregateRootId = Id,
                 Name = name,
                 ContactEmail = email
             });
@@ -24,6 +25,7 @@ namespace MyLunch.Domain.Menu
 
         public void Apply(RestaurantRegistered e)
         {
+            Id = e.AggregateRootId;
             Name = e.Name;
             ContactEmail = e.ContactEmail;
         }
