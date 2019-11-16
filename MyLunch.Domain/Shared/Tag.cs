@@ -2,7 +2,7 @@
 using Guards;
 using Kledex.Domain;
 
-namespace MyLunch.Domain.Menu
+namespace MyLunch.Domain.Shared
 {
     public class Tag : ValueObject
     {

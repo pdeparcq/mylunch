@@ -39,12 +39,16 @@ namespace MyLunch.Domain.Menu
     {
         public string Name { get; private set; }
         public bool IsAvailable { get; private set; }
-        public double Price { get; private set; }
+        public double ExtraPrice { get; private set; }
 
-        public MenuOptionItem(string name, bool isAvailable, double price)
+        public MenuOptionItem(string name, bool isAvailable, double extraPrice)
         {
             Guard.ArgumentNotNullOrEmpty(() => name);
-            Guard.ArgumentIsGreaterOrEqual(() => price, 0);
+            Guard.ArgumentIsGreaterOrEqual(() => extraPrice, 0);
+
+            Name = name;
+            IsAvailable = isAvailable;
+            ExtraPrice = extraPrice;
         }
 
         protected override IEnumerable<object> GetAtomicValues()
