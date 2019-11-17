@@ -5,8 +5,8 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <PackageReference Include="Guards" Version="2.1.19292.12" />
-    <PackageReference Include="Kledex" Version="2.1.0" />
+    <PackageReference Include="Guards" Version="2.1.19292.13-pre" />
+    <PackageReference Include="Kledex" Version="2.2.1" />
   </ItemGroup>
 
   <ItemGroup>

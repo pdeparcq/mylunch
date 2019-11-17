@@ -21,7 +21,6 @@ namespace MyLunch.Domain.Menu
         {
             Guard.ArgumentCondition(() => groupId, id => id != Guid.Empty);
             Guard.ArgumentNotNullOrEmpty(() => productName);
-            Guard.ArgumentNotNullOrEmpty(() => productDescription);
             Guard.ArgumentIsGreaterThan(() => price, 0);
 
             GroupId = groupId;
