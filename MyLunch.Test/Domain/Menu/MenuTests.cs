@@ -25,7 +25,7 @@ namespace MyLunch.Test.Domain
         public void CanAddMenuGroup()
         {
             var menu = new MyLunch.Domain.Menu.Menu(Guid.NewGuid());
-            var group = new MenuGroup(Guid.NewGuid(), "Broodjes", 4);
+            var group = new MenuGroup(Guid.NewGuid(), "Broodjes");
 
             menu.AddMenuGroup(group);
 
@@ -35,15 +35,14 @@ namespace MyLunch.Test.Domain
 
             Assert.AreEqual(group.Id, first.Id);
             Assert.AreEqual(group.Name, first.Name);
-            Assert.AreEqual(group.DefaultItemPrice, first.DefaultItemPrice);
         }
 
         [Test]
         public void CanAddMenuItems()
         {
             var menu = new MyLunch.Domain.Menu.Menu(Guid.NewGuid());
-            var group = new MenuGroup(Guid.NewGuid(), "Broodjes", 4);
-            var item = new MenuItem(Guid.NewGuid(), group.Id, "Hoevekaas", "Hoevekaas, light mosterddressing of mayo, wortel, tomaat, krokante sla");
+            var group = new MenuGroup(Guid.NewGuid(), "Broodjes");
+            var item = new MenuItem(Guid.NewGuid(), group.Id, "Hoevekaas", "Hoevekaas, light mosterddressing of mayo, wortel, tomaat, krokante sla", 3.3);
 
             menu.AddMenuGroup(group);
             menu.AddMenuItem(item);
@@ -56,7 +55,7 @@ namespace MyLunch.Test.Domain
             Assert.AreEqual(group.Id, first.GroupId);
             Assert.AreEqual(item.ProductName, first.ProductName);
             Assert.AreEqual(item.ProductDescription, first.ProductDescription);
-            Assert.AreEqual(group.DefaultItemPrice, first.Price);
+            Assert.AreEqual(item.Price, first.Price);
         }
     }
 }

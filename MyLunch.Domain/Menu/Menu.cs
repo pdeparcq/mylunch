@@ -47,8 +47,7 @@ namespace MyLunch.Domain.Menu
             {
                 AggregateRootId = Id,
                 Id = group.Id,
-                Name = group.Name,
-                DefaultItemPrice = group.DefaultItemPrice
+                Name = group.Name
             });
         }
 
@@ -69,7 +68,8 @@ namespace MyLunch.Domain.Menu
                 Id = item.Id,
                 GroupId = item.GroupId,
                 ProductName = item.ProductName,
-                ProductDescription = item.ProductDescription
+                ProductDescription = item.ProductDescription,
+                Price = item.Price
             });
         }
 
@@ -83,14 +83,14 @@ namespace MyLunch.Domain.Menu
 
         public void Apply(MenuGroupAdded e)
         {
-            Groups.Add(new MenuGroup(e.Id, e.Name, e.DefaultItemPrice));
+            Groups.Add(new MenuGroup(e.Id, e.Name));
         }
 
         public void Apply(MenuItemAdded e)
         {
             var group = Groups.First(g => g.Id == e.GroupId);
 
-            Items.Add(new MenuItem(e.Id, e.GroupId, e.ProductName, e.ProductDescription, group.DefaultItemPrice));
+            Items.Add(new MenuItem(e.Id, e.GroupId, e.ProductName, e.ProductDescription, e.Price));
         }
     }
 }

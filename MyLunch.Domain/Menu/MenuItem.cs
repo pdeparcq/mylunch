@@ -17,12 +17,12 @@ namespace MyLunch.Domain.Menu
         public List<Ingredient> Ingredients { get; private set; }
         public List<Tag> Tags { get; private set; }
 
-        public MenuItem(Guid id, Guid groupId, string productName, string productDescription, double price = 0) : base(id)
+        public MenuItem(Guid id, Guid groupId, string productName, string productDescription, double price) : base(id)
         {
             Guard.ArgumentCondition(() => groupId, id => id != Guid.Empty);
             Guard.ArgumentNotNullOrEmpty(() => productName);
             Guard.ArgumentNotNullOrEmpty(() => productDescription);
-            Guard.ArgumentIsGreaterOrEqual(() => price, 0);
+            Guard.ArgumentIsGreaterThan(() => price, 0);
 
             GroupId = groupId;
             ProductName = productName;
