@@ -2,6 +2,7 @@
 using System.Threading.Tasks;
 using Guards;
 using Kledex.Events;
+using MyLunch.Application.Menu.Entities;
 using MyLunch.Domain.Menu.Events;
 
 namespace MyLunch.Application.Menu.EventHandlers

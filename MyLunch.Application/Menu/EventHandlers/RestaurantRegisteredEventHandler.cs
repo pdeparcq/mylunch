@@ -1,5 +1,6 @@
 ﻿using Guards;
 using Kledex.Events;
+using MyLunch.Application.Menu.Entities;
 using MyLunch.Domain.Menu.Events;
 using System.Threading.Tasks;
 

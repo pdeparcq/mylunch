@@ -1,5 +1,5 @@
 ﻿using Microsoft.EntityFrameworkCore;
-using MyLunch.Application.Menu;
+using MyLunch.Application.Menu.Entities;
 using MyLunch.Application.Menu.EventHandlers;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Converters;

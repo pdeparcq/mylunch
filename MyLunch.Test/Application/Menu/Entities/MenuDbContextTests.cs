@@ -1,9 +1,9 @@
 ﻿using Microsoft.EntityFrameworkCore;
-using MyLunch.Application.Menu;
+using MyLunch.Application.Menu.Entities;
 using NUnit.Framework;
 using System.Linq;
 
-namespace MyLunch.Test.Application.Menu
+namespace MyLunch.Test.Application.Menu.Entities
 {
     [TestFixture]
     public class MenuDbContextTests
@@ -11,7 +11,7 @@ namespace MyLunch.Test.Application.Menu
         [Test]
         public void CanCreateContext()
         {
-            var options = new DbContextOptionsBuilder<MenuDbContext> ()
+            var options = new DbContextOptionsBuilder<MenuDbContext>()
                            .UseInMemoryDatabase(databaseName: "Test")
                            .Options;
 
