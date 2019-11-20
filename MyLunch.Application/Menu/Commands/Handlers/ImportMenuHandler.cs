@@ -43,7 +43,8 @@ namespace MyLunch.Application.Menu.Commands.Handlers
                         menu.AddMenuGroup(group);
                     }
 
-                    menu.AddMenuItem(new Domain.Menu.MenuItem(Guid.NewGuid(), group.Id, item.ProductName, item.ProductDescription, item.Price));
+                    if(!menu.Items.Any(i => i.ProductName == item.ProductName))
+                        menu.AddMenuItem(new Domain.Menu.MenuItem(Guid.NewGuid(), group.Id, item.ProductName, item.ProductDescription, item.Price));
                 }
                 catch(Exception e)
                 {
