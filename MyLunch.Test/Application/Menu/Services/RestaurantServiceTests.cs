@@ -7,10 +7,10 @@ using Microsoft.Extensions.Logging;
 using MyLunch.Application.Menu.EventHandlers;
 using MyLunch.Application.Menu.Mappings;
 using MyLunch.Application.Menu.Services;
+using MyLunch.Domain.Menu;
 using MyLunch.Domain.Menu.Events;
 using NUnit.Framework;
 using System;
-using System.Collections.Generic;
 using System.Threading.Tasks;
 
 namespace MyLunch.Test.Application.Menu.Services
@@ -21,24 +21,19 @@ namespace MyLunch.Test.Application.Menu.Services
         [Test]
         public async Task CanGetRestaurantById()
         {
+            var provider = CreateServiceProvider();
+            ValidateMappers(provider.GetService<IMapper>());
+            Guid restaurantId = await PublishEvents(provider.GetService<IEventPublisher>());
 
-            //Register services
-            var serviceCollection = new ServiceCollection();
-            serviceCollection.AddDbContext<MyLunch.Application.Menu.Entities.MenuDbContext>(options => options.UseInMemoryDatabase(databaseName: "Test"));
-            serviceCollection.AddKledex(typeof(RestaurantRegisteredEventHandler));
-            serviceCollection.AddAutoMapper(typeof(RestaurantProfile).Assembly);
-            serviceCollection.AddLogging(cfg => cfg.AddConsole());
-            serviceCollection.AddTransient<RestaurantService>();
+            var service = provider.GetService<RestaurantService>();
+            var restaurant = await service.GetRestaurantById(restaurantId);
 
-            //Build provider
-            var provider = serviceCollection.BuildServiceProvider();
+            Assert.IsNotNull(restaurant);
+            restaurant.PrettyPrint(Console.Out);
+        }
 
-            //Validate mappers
-            var mapper = provider.GetService<IMapper>();
-            mapper.ConfigurationProvider.AssertConfigurationIsValid();
-
-            //Publish events
-            var publisher = provider.GetService<IEventPublisher>();
+        private static async Task<Guid> PublishEvents(IEventPublisher publisher)
+        {
             var restaurantId = Guid.NewGuid();
             await publisher.PublishAsync(new RestaurantRegistered
             {
@@ -46,14 +41,33 @@ namespace MyLunch.Test.Application.Menu.Services
                 Name = "Taste it Gent",
                 ContactEmail = new MyLunch.Domain.Shared.EmailAddress("info@taste-it-gent.be")
             });
+            return restaurantId;
+        }
 
-            var service = provider.GetService<RestaurantService>();
+        private static void ValidateMappers(IMapper mapper)
+        {
+            mapper.ConfigurationProvider.AssertConfigurationIsValid();
+        }
 
-            var restaurant = await service.GetRestaurantById(restaurantId);
+        private static IServiceProvider CreateServiceProvider()
+        {
+            //Register services
+            var serviceCollection = new ServiceCollection();
+            serviceCollection.AddDbContext<MyLunch.Application.Menu.Entities.MenuDbContext>(options => options.UseInMemoryDatabase(databaseName: "Test"));
+            serviceCollection.AddKledex(typeof(RestaurantRegisteredEventHandler));
+            serviceCollection.AddLogging(cfg => cfg.AddConsole());
+            serviceCollection.AddTransient<RestaurantService>();
 
-            Assert.IsNotNull(restaurant);
+            // Auto Mapper Configurations
+            var mappingConfig = new MapperConfiguration(mc =>
+            {
+                mc.AddMaps(typeof(RestaurantProfile));
+            });
+            serviceCollection.AddSingleton(mappingConfig.CreateMapper());
 
-            restaurant.PrettyPrint(Console.Out);
+            //Build provider
+            var provider = serviceCollection.BuildServiceProvider();
+            return provider;
         }
     }
 }
