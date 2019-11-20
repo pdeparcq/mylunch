@@ -5,14 +5,13 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <Folder Include="Menu\EventHandlers\" />
-    <Folder Include="Menu\Entities\" />
     <Folder Include="Menu\ViewModels\" />
   </ItemGroup>
 
   <ItemGroup>
     <PackageReference Include="FluentValidation" Version="8.5.1" />
     <PackageReference Include="Kledex" Version="2.2.1" />
+    <PackageReference Include="Kledex.Store.EF" Version="2.2.1" />
     <PackageReference Include="Microsoft.Extensions.Logging.Abstractions" Version="3.1.0-preview3.19553.2" />
   </ItemGroup>
 
