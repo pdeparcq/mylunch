@@ -62,17 +62,8 @@ namespace MyLunch.Test.Application.Menu.EventHandlers
                     Price = 3.6
                 });
 
-                PrettyPrint(await ctx.Menus.FirstAsync());
+                (await ctx.Menus.FirstAsync()).PrettyPrint(Console.Out);
             }
-        }
-
-        private static void PrettyPrint(object o)
-        {
-            Console.WriteLine(JsonConvert.SerializeObject(o, Formatting.Indented, new JsonSerializerSettings
-            {
-                ReferenceLoopHandling = ReferenceLoopHandling.Ignore,
-                Converters = new List<JsonConverter> { new StringEnumConverter() }
-            }));
         }
     }
 }
