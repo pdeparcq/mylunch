@@ -10,6 +10,6 @@ namespace MyLunch.Application.Menu.Entities
         public Guid RestaurantId { get; set; }
         public virtual Restaurant Restaurant { get; set; }
         public MenuState State { get; set; }
-        public virtual ICollection<MenuItem> Items { get; set; }
+        public virtual ICollection<MenuGroup> Groups { get; set; }
     }
 }

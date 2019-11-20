@@ -26,6 +26,8 @@ namespace MyLunch.Test.Application.Menu.EventHandlers
                         RestaurantId = Guid.NewGuid()
                     });
 
+                await ctx.SaveChangesAsync();
+
                 Assert.IsNotEmpty(ctx.Menus);
             }
         }

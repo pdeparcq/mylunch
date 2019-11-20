@@ -19,14 +19,12 @@ namespace MyLunch.Application.Menu.EventHandlers
 
         public async Task HandleAsync(MenuCreated e)
         {
-            _db.Menus.Add(new Entities.Menu
+            await _db.Menus.AddAsync(new Entities.Menu
             {
                 Id = e.Id,
-                Restaurant = _db.Restaurants.Single(r => r.Id == e.RestaurantId),
+                RestaurantId = e.RestaurantId,
                 State = Domain.Menu.MenuState.UnderConstruction
             });
-
-            await _db.SaveChangesAsync();
         }
     }
 }

@@ -5,8 +5,6 @@ namespace MyLunch.Application.Menu.Entities
     public class MenuItem
     {
         public Guid Id { get; set; }
-        public Guid MenuId { get; set; }
-        public virtual Menu Menu { get; set; }
         public Guid MenuGroupId { get; set; }
         public virtual MenuGroup MenuGroup { get; set; }
         public string ProductName { get; private set; }
