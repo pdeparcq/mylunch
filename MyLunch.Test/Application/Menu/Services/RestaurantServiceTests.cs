@@ -11,12 +11,16 @@ namespace MyLunch.Test.Application.Menu.Services
     public class RestaurantServiceTests : IntegrationTest
     {
         [Test]
-        public async Task CanGetRestaurantById()
+        public async Task CanRegisterRestaurant()
         {
-            var service = ServiceProvider.GetService<RestaurantService>();          
-            var restaurant = await PublishEvents(new Restaurant("Taste It Gent", new MyLunch.Domain.Shared.EmailAddress("info@taste-it-gent.be")));
-            var r = await service.GetRestaurantById(restaurant.Id);
-            Assert.IsNotNull(r);
+            var service = ServiceProvider.GetService<RestaurantService>();
+            var restaurant = await service.RegisterRestaurant(new MyLunch.Application.Menu.InputModels.RestaurantRegistrationModel
+            {
+                RestaurantName = "Taste it Gent",
+                ContactEmailAddress = "info@taste-it-gent.be"
+            });
+            restaurant = await service.GetRestaurantById(restaurant.Id);
+            Assert.IsNotNull(restaurant);
             restaurant.PrettyPrint(Console.Out);
         }
     }

@@ -2,6 +2,7 @@
 using Guards;
 using Kledex;
 using Microsoft.Extensions.Logging;
+using MyLunch.Application.Menu.InputModels;
 using MyLunch.Application.Menu.Queries;
 using MyLunch.Application.Menu.ViewModels;
 using System;
@@ -24,6 +25,11 @@ namespace MyLunch.Application.Menu.Services
             _dispatcher = dispatcher;
             _logger = logger;
             _mapper = mapper;
+        }
+
+        public async Task<RestaurantViewModel> RegisterRestaurant(RestaurantRegistrationModel model)
+        {
+            throw new NotImplementedException();
         }
 
         public async Task<RestaurantViewModel> GetRestaurantById(Guid id)
