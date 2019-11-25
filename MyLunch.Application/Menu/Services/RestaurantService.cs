@@ -2,10 +2,12 @@
 using Guards;
 using Kledex;
 using Microsoft.Extensions.Logging;
+using MyLunch.Application.Menu.Commands;
 using MyLunch.Application.Menu.InputModels;
 using MyLunch.Application.Menu.Queries;
 using MyLunch.Application.Menu.ViewModels;
 using System;
+using System.Collections.Generic;
 using System.Threading.Tasks;
 
 namespace MyLunch.Application.Menu.Services
@@ -27,9 +29,34 @@ namespace MyLunch.Application.Menu.Services
             _mapper = mapper;
         }
 
-        public async Task<RestaurantViewModel> RegisterRestaurant(RestaurantRegistrationModel model)
+        public async Task RegisterRestaurant(RestaurantRegistrationModel model)
         {
-            throw new NotImplementedException();
+            try
+            {
+                await _dispatcher.SendAsync(new RegisterRestaurant
+                {
+                    RestaurantName = model.RestaurantName,
+                    ContactEmailAddress = new Domain.Shared.EmailAddress(model.ContactEmailAddress)
+                });
+            }
+            catch (Exception e)
+            {
+                _logger.LogError(e, e.Message);
+                throw;
+            }
+        }
+
+        public async Task<IEnumerable<RestaurantViewModel>> GetAllRestaurants()
+        {
+            try
+            {
+                return _mapper.Map<IEnumerable<Entities.Restaurant>, IEnumerable<RestaurantViewModel>>(await _dispatcher.GetResultAsync(new GetRestaurants()));
+            }
+            catch (Exception e)
+            {
+                _logger.LogError(e, e.Message);
+                throw;
+            }
         }
 
         public async Task<RestaurantViewModel> GetRestaurantById(Guid id)

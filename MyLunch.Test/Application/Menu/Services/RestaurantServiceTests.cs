@@ -3,6 +3,7 @@ using MyLunch.Application.Menu.Services;
 using MyLunch.Domain.Menu;
 using NUnit.Framework;
 using System;
+using System.Linq;
 using System.Threading.Tasks;
 
 namespace MyLunch.Test.Application.Menu.Services
@@ -14,13 +15,17 @@ namespace MyLunch.Test.Application.Menu.Services
         public async Task CanRegisterRestaurant()
         {
             var service = ServiceProvider.GetService<RestaurantService>();
-            var restaurant = await service.RegisterRestaurant(new MyLunch.Application.Menu.InputModels.RestaurantRegistrationModel
+            await service.RegisterRestaurant(new MyLunch.Application.Menu.InputModels.RestaurantRegistrationModel
             {
                 RestaurantName = "Taste it Gent",
                 ContactEmailAddress = "info@taste-it-gent.be"
             });
-            restaurant = await service.GetRestaurantById(restaurant.Id);
-            Assert.IsNotNull(restaurant);
+
+            var restaurant = (await service.GetAllRestaurants()).First();
+            var menu = restaurant.Menus.First();
+            
+            Assert.AreEqual(MenuState.UnderConstruction, menu.State);
+
             restaurant.PrettyPrint(Console.Out);
         }
     }
