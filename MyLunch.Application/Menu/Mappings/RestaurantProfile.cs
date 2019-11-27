@@ -8,6 +8,7 @@ namespace MyLunch.Application.Menu.Mappings
         public RestaurantProfile()
         {
             CreateMap<Entities.Restaurant, RestaurantViewModel>();
+            CreateMap<Entities.Menu, RestaurantMenuViewModel>();
         }
     }
 }
