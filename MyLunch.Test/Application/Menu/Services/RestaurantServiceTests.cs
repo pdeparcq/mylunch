@@ -21,7 +21,11 @@ namespace MyLunch.Test.Application.Menu.Services
                 ContactEmailAddress = "info@taste-it-gent.be"
             });
 
-            var restaurant = (await service.GetAllRestaurants()).First();
+            var restaurants = await service.GetAllRestaurants();
+
+            Assert.AreEqual(1, restaurants.Count());
+
+            var restaurant = restaurants.First();
             var menu = restaurant.Menus.First();
             
             Assert.AreEqual(MenuState.UnderConstruction, menu.State);

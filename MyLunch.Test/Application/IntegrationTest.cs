@@ -1,6 +1,4 @@
 ﻿using AutoMapper;
-using Kledex.Domain;
-using Kledex.Events;
 using Kledex.Extensions;
 using Kledex.Store.EF.InMemory;
 using Microsoft.EntityFrameworkCore;
@@ -13,7 +11,6 @@ using MyLunch.Application.Menu.Mappings;
 using NUnit.Framework;
 using System;
 using System.Collections.Generic;
-using System.Threading.Tasks;
 
 namespace MyLunch.Test.Application
 {
@@ -22,7 +19,7 @@ namespace MyLunch.Test.Application
 
         protected IServiceProvider ServiceProvider { get; private set; }
 
-        [OneTimeSetUp]
+        [SetUp]
         public void Init()
         {
             var config = new ConfigurationBuilder().AddInMemoryCollection(
@@ -33,7 +30,7 @@ namespace MyLunch.Test.Application
             //Register services
             var serviceCollection = new ServiceCollection();
             serviceCollection.AddSingleton<IConfiguration>(config);
-            serviceCollection.AddDbContext<MyLunch.Application.Menu.Entities.MenuDbContext>(options => options.UseInMemoryDatabase("Test"));
+            serviceCollection.AddDbContext<MyLunch.Application.Menu.Entities.MenuDbContext>(options => options.UseInMemoryDatabase(Guid.NewGuid().ToString()));
             serviceCollection.AddKledex(typeof(RestaurantRegisteredEventHandler)).AddInMemoryProvider();
             serviceCollection.AddLogging(cfg => cfg.AddConsole());
             serviceCollection.AddMyLunch();
