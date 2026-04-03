@@ -7,10 +7,11 @@
   <ItemGroup>
     <PackageReference Include="Guards" Version="2.1.19292.12" />
     <PackageReference Include="Kledex" Version="2.3.0" />
-    <PackageReference Include="Microsoft.Extensions.Logging.Abstractions" Version="3.0.1" />
+    <PackageReference Include="Microsoft.Extensions.Logging.Abstractions" Version="10.0.0" />
   </ItemGroup>
 
   <ItemGroup>
+    <PackageReference Include="AutoMapper" Version="15.1.1" />
     <Folder Include="Payment\" />
     <Folder Include="Order\" />
   </ItemGroup>
